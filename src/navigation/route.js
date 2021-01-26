@@ -21,7 +21,7 @@ export default function RouteWrapper({
    * without authentication.
    */
   if (!notPrivate && !signed) {
-    return <Redirect to="/signin" />;
+    return <Redirect to="/login" />;
   }
 
   /**
