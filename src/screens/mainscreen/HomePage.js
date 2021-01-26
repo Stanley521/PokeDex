@@ -1,12 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { PersistGate } from 'redux-persist/integration/react'
-import { Provider, useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled'
 import icon from './../../assets/assets';
 import browserHistory from '../../navigation/browserHistory';
-import colours from '../../assets/colors/pokemon-types';
 import { DetailPokemon, PokemonData, PokemonName, PokemonRowUI, OwnedBadge, TypeBadge } from '../pokemon/styles';
 
 
@@ -97,10 +95,10 @@ function PokemonRow(props) {
     function goToPokemonDetail(name) {
         browserHistory.push(`/pokemon/${name}`)
     }
-    const owned = myPokemon.findIndex((value)=> {return value.name == props.name })
+    const owned = myPokemon.findIndex((value)=> {return value.name === props.name })
     return <PokemonRowUI onClick={() => { goToPokemonDetail(props.name) }}>
         <DetailPokemon>
-            <img src={props.image} />
+            <img src={props.image} alt="img"/>
             <PokemonData>
                 <PokemonName>{props.name}</PokemonName>
                 <span className="typeContainer">
@@ -111,7 +109,7 @@ function PokemonRow(props) {
             </PokemonData>
         </DetailPokemon>
         <OwnedBadge>
-            {owned !== -1 && <img width="20" height="20" src={icon.icon.pokeball_color} />}
+            {owned !== -1 && <img width="20" height="20" src={icon.icon.pokeball_color} alt="img"/>}
         </OwnedBadge>
     </PokemonRowUI>
 }
@@ -132,12 +130,14 @@ export default function HomePage(props) {
             rootMargin: "20px",
             threshold: 1.0
         };
+        
         // initialize IntersectionObserver
         // and attaching to Load More div
         const observer = new IntersectionObserver(handleObserver, options);
         if (loader.current) {
             observer.observe(loader.current)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleObserver = (entities) => {
@@ -161,7 +161,7 @@ export default function HomePage(props) {
             })
         }
     }
-    console.log(data)
+    
     return <HomeContainer>
         {
             data?.pokemons?.results?.map((value, index) => {

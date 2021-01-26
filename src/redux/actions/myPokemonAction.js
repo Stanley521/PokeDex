@@ -1,4 +1,4 @@
-import { ADD_MY_POKEMON, GET_MY_POKEMON, INIT_MY_POKEMON, REMOVE_MY_POKEMON, UPDATE_MY_POKEMON_FAIL, UPDATE_MY_POKEMON_SUCCESS } from './types';
+import { ADD_MY_POKEMON, GET_MY_POKEMON, INIT_MY_POKEMON, REMOVE_MY_POKEMON } from './types';
 
 export const initUser = () => {
     return { type: INIT_MY_POKEMON };
@@ -9,7 +9,7 @@ export const addMyPokemon = (data = {}, myPokemon, dispatch) => {
     const name = data?.name;
     const nickName = data?.nickName;
     const findIndex = array.findIndex((value) => {
-        return value.name == name && value.nickName == nickName
+        return value.name === name && value.nickName === nickName
     })
     if (findIndex !== -1) {
         return { data: array, error: true, message: `You already have ${name} named ${nickName}` };
@@ -31,7 +31,7 @@ export const removeMyPokemon = (data = {}, myPokemon, dispatch) => {
     const findIndex = array.findIndex((value) => {
         console.log(name)
         console.log(value)
-        return value.name == name && value.nickName == nickName
+        return value.name === name && value.nickName === nickName
     })
     if (findIndex === -1) {
         return { data: array, error: true, message: `There's no pokemon named ${nickName}` };
@@ -55,15 +55,15 @@ export const updateMyPokemon = (data = [], dispatch) => {
     });
 };
 
-const updateMyPokemonFail = (dispatch, error) => {
-    dispatch({
-        type: UPDATE_MY_POKEMON_FAIL,
-        error: error
-    });
-};
+// const updateMyPokemonFail = (dispatch, error) => {
+//     dispatch({
+//         type: UPDATE_MY_POKEMON_FAIL,
+//         error: error
+//     });
+// };
 
-const updateMyPokemonSuccess = dispatch => {
-    dispatch({
-        type: UPDATE_MY_POKEMON_SUCCESS
-    });
-};
+// const updateMyPokemonSuccess = dispatch => {
+//     dispatch({
+//         type: UPDATE_MY_POKEMON_SUCCESS
+//     });
+// };

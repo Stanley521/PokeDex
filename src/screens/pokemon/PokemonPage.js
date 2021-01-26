@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { PersistGate } from 'redux-persist/integration/react'
-import { Provider, useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled'
 import icon from './../../assets/assets';
-import browserHistory from '../../navigation/browserHistory';
-import colours from '../../assets/colors/pokemon-types';
 import { useParams } from 'react-router-dom';
-import { DetailPokemon, PokemonData, PokemonName, PokemonRowUI, OwnedBadge, TypeBadge } from './styles';
-import { Button } from 'react-bootstrap';
 import MyVerticallyCenteredModal from '../../components/modals/MyVerticallyCenteredModal';
 import SimpleTextInput from '../../components/forms/inputs/SimpleTextInput';
 import { addMyPokemon } from '../../redux/actions/myPokemonAction';
@@ -120,24 +115,6 @@ const ButtonConfirm = styled.button`
     }
 `
 
-function PokemonRow(props) {
-    function goToPokemonDetail(name) {
-        browserHistory.push(`/pokemon/${name}`)
-    }
-    return <PokemonRowUI style={{ margin: '0.5rem 1em' }} onClick={() => { goToPokemonDetail(props.name) }}>
-        <DetailPokemon>
-            <img src={props.sprites?.front_default} />
-            <PokemonData>
-                <PokemonName>{props.name}</PokemonName>
-                <span className="typeContainer">{props.types?.map((value) => {
-                    return <TypeBadge type={value.type.name}>{value.type.name}</TypeBadge>
-                })}</span>
-            </PokemonData>
-        </DetailPokemon>
-    </PokemonRowUI>
-}
-
-
 export default function PokemonPage(props) {
     const { name } = useParams();
     const [modalShow, setModalShow] = useState(false);
@@ -212,8 +189,8 @@ export default function PokemonPage(props) {
     }
 
     return <Container>
-        <img className="pokemonImg" src={response?.data?.pokemon?.sprites?.front_default} />
-        <img className="pokeBall" src={icon.icon.pokeball_color} onClick={catchPokemon} />
+        <img className="pokemonImg" src={response?.data?.pokemon?.sprites?.front_default} alt="img"/>
+        <img className="pokeBall" src={icon.icon.pokeball_color} onClick={catchPokemon} alt="img"/>
 
         <MyVerticallyCenteredModal
             show={modalShow}
@@ -223,7 +200,7 @@ export default function PokemonPage(props) {
             onHide={onHide}
             children={<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Container style={{ textAlign: 'center' }}>
-                    <img className="pokemonImg" src={response?.data?.pokemon?.sprites?.front_default} />
+                    <img className="pokemonImg" src={response?.data?.pokemon?.sprites?.front_default} alt="img"/>
                 </Container>
                 <span>Give your {name} a nickname.</span><span style={{ color: 'red' }}>{modalError}</span>
                 <SimpleTextInput

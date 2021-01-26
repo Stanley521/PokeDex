@@ -1,6 +1,3 @@
-
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { Link } from 'react-router-dom';
 import icon from '../../assets/assets';
@@ -42,7 +39,7 @@ export default function MainHeader(props) {
     return <Header>
         <Link to="/">Pokemon</Link>
         <Link to="/myPokemon">
-            <img width={30} height={30} src={icon.icon.pokeball} />
+            <img width={30} height={30} src={icon.icon.pokeball} alt="img"/>
         </Link>
     </Header>
 }

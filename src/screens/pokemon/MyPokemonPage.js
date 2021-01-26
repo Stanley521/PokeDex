@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { PersistGate } from 'redux-persist/integration/react'
-import { Provider, useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
-import { gql, useQuery } from '@apollo/client';
 import styled from '@emotion/styled'
-import icon from './../../assets/assets';
-import browserHistory from '../../navigation/browserHistory';
 import colours from '../../assets/colors/pokemon-types';
-import { useParams } from 'react-router-dom';
-import { DetailPokemon, PokemonData, PokemonName, PokemonRowUI, OwnedBadge, TypeBadge } from './styles';
-import { Button } from 'react-bootstrap';
 import MyVerticallyCenteredModal from '../../components/modals/MyVerticallyCenteredModal';
-import SimpleTextInput from '../../components/forms/inputs/SimpleTextInput';
-import { addMyPokemon, removeMyPokemon } from '../../redux/actions/myPokemonAction';
+import { removeMyPokemon } from '../../redux/actions/myPokemonAction';
 
 const PokemonListContainer = styled.div`
     display: flex;
@@ -95,7 +87,7 @@ export default function MyPokemonPage() {
 
     function releasePokemon() {
         console.log(selectedPokemon)
-        const { data, message, error } = removeMyPokemon(selectedPokemon, myPokemon, dispatch)
+        const { message, error } = removeMyPokemon(selectedPokemon, myPokemon, dispatch)
         if (!error) setSelectedPokemon({});
         setShowModal(false);
         setAlertModal(true);
@@ -109,7 +101,7 @@ export default function MyPokemonPage() {
         <PokemonListContainer>
             {myPokemon.map((pokemon) => {
                 return <PokemonNode onClick={() => { setShowModal(true); setSelectedPokemon({ ...pokemon }) }}>
-                    <img width="75px" className="pokemonImg" src={pokemon?.sprites?.front_default} />
+                    <img width="75px" className="pokemonImg" src={pokemon?.sprites?.front_default} alt="img"/>
                 </PokemonNode>
             })}
         </PokemonListContainer>
@@ -122,7 +114,7 @@ export default function MyPokemonPage() {
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <span>{selectedPokemon.nickName}</span>
                     <Container style={{ textAlign: 'center' }}>
-                        <img width="200px" className="pokemonImg" src={selectedPokemon?.sprites?.front_default} />
+                        <img width="200px" className="pokemonImg" src={selectedPokemon?.sprites?.front_default} alt="img"/>
                     </Container>
                     <ButtonRelease width='100%' onClick={releasePokemon}>Release</ButtonRelease>
                 </div>

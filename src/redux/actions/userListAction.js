@@ -1,4 +1,4 @@
-import { ADD_USER_LIST, GET_USER_LIST_SUCCESS, INIT_USER_LIST, UPDATE_USER_LIST_FAIL, UPDATE_USER_LIST_SUCCESS } from './types';
+import { ADD_USER_LIST, GET_USER_LIST_SUCCESS, INIT_USER_LIST } from './types';
 
 export const initUser = () => {
   return { type: INIT_USER_LIST };
@@ -22,15 +22,15 @@ export const updateUser = (data = [], dispatch) => {
   });
 };
 
-const updateFail = (dispatch, error) => {
-  dispatch({
-    type: UPDATE_USER_LIST_FAIL,
-    error: error
-  });
-};
+// const updateFail = (dispatch, error) => {
+//   dispatch({
+//     type: UPDATE_USER_LIST_FAIL,
+//     error: error
+//   });
+// };
 
-const updateSuccess = dispatch => {
-  dispatch({
-    type: UPDATE_USER_LIST_SUCCESS
-  });
-};
+// const updateSuccess = dispatch => {
+//   dispatch({
+//     type: UPDATE_USER_LIST_SUCCESS
+//   });
+// };
